@@ -1,0 +1,30 @@
+{
+  "name": "Solana Anchor Dev",
+  "image": "mcr.microsoft.com/devcontainers/rust:1-bullseye",
+  "features": {
+    // 安装 Node.js (用于运行 Anchor 的测试脚本)
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rust-lang.rust-analyzer", // Rust 语法支持
+        "tamasfe.even-better-toml", // TOML 文件高亮
+        "serayuzgur.crates", // 依赖包版本管理
+        "vadimcn.vscode-lldb" // 调试工具
+      ]
+    }
+  },
+  // 端口转发：将 Solana 本地节点的 8899 端口暴露出来
+  "forwardPorts": [8899],
+
+  // 容器创建后执行的命令：安装系统依赖、Solana CLI 和 Anchor CLI
+  "updateContentCommand": "sudo apt-get update && sudo apt-get install -y pkg-config build-essential libudev-dev libssl-dev && sh -c \"$(curl -sSfL https://release.solana.com/v1.18.4/install)\" && export PATH=\"/home/vscode/.local/share/solana/install/active_release/bin:$PATH\" && cargo install --git https://github.com/coral-xyz/anchor avm --locked --force && avm install latest && avm use latest",
+
+  // 设置环境变量，确保终端能找到命令
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/home/vscode/.local/share/solana/install/active_release/bin:/home/vscode/.avm/bin"
+  }
+}
