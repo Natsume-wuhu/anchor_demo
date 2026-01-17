@@ -1,6 +1,6 @@
 {
   "name": "Solana Anchor Dev",
-  "image": "mcr.microsoft.com/devcontainers/rust:1-bullseye",
+  "image": "mcr.microsoft.com/devcontainers/rust:1-bookworm",
   "features": {
     // 安装 Node.js (用于运行 Anchor 的测试脚本)
     "ghcr.io/devcontainers/features/node:1": {
